@@ -3,14 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Simple Project</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Hello World</h1>
-    <h2>Hello World</h2>
-    <h3>Hello World</h3>
-    <h4>Hello World</h4>
-    <h5>Hello World</h5>
-    <h6>Hellow World</h6>
+    <nav>
+        <a href="hello.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <div class="nav-auth">
+            <button class="btn-login" onclick="showLoginForm()">Login</button>
+            <button class="btn-register" onclick="showRegisterForm()">Register</button>
+        </div>
+    </nav>
+    
+    <header>
+        <h1>Welcome to My Simple HTML Project</h1>
+        <p>A clean and modern web page</p>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>About This Project</h2>
+            <p>This is a simple HTML project demonstrating basic web development skills including HTML structure and CSS styling.</p>
+        </section>
+
+        <section class="features">
+            <h2>Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📱 Responsive</h3>
+                    <p>Works on all devices</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎨 Styled</h3>
+                    <p>Modern CSS design</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Clean</h3>
+                    <p>Simple and elegant</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery">
+            <h2>Gallery</h2>
+            <div class="image-grid">
+                <div class="image-placeholder">Image 1</div>
+                <div class="image-placeholder">Image 2</div>
+                <div class="image-placeholder">Image 3</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 My Simple Project</p>
+    </footer>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginForm()">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="rememberMe" name="remember">
+                    <label for="rememberMe" class="checkbox-label">Remember me</label>
+                </div>
+                <button type="submit" class="btn-submit">Login</button>
+            </form>
+            <p class="toggle-form">Don't have an account? <a href="#" onclick="switchToRegister()">Register here</a></p>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRegisterForm()">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name:</label>
+                    <input type="text" id="registerName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email:</label>
+                    <input type="email" id="registerEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password:</label>
+                    <input type="password" id="registerPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirm Password:</label>
+                    <input type="password" id="registerConfirmPassword" name="confirmPassword" required>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms" class="checkbox-label">I agree to the Terms and Conditions</label>
+                </div>
+                <button type="submit" class="btn-submit">Register</button>
+            </form>
+            <p class="toggle-form">Already have an account? <a href="#" onclick="switchToLogin()">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        function showLoginForm() {
+            document.getElementById("loginModal").style.display = "block";
+            document.getElementById("registerModal").style.display = "none";
+        }
+
+        function closeLoginForm() {
+            document.getElementById("loginModal").style.display = "none";
+        }
+
+    
+        function showRegisterForm() {
+            document.getElementById("registerModal").style.display = "block";
+            document.getElementById("loginModal").style.display = "none";
+        }
+
+        function closeRegisterForm() {
+            document.getElementById("registerModal").style.display = "none";
+        }
+
+       
+        function switchToLogin() {
+            document.getElementById("registerModal").style.display = "none";
+            document.getElementById("loginModal").style.display = "block";
+        }
+
+        function switchToRegister() {
+            document.getElementById("loginModal").style.display = "none";
+            document.getElementById("registerModal").style.display = "block";
+        }
+
+     
+        window.onclick = function(event) {
+            let loginModal = document.getElementById("loginModal");
+            let registerModal = document.getElementById("registerModal");
+            if (event.target == loginModal) {
+                loginModal.style.display = "none";
+            }
+            if (event.target == registerModal) {
+                registerModal.style.display = "none";
+            }
+        }
+
+    
+        document.getElementById("loginForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            alert("Login submitted! (This is a demo)");
+            closeLoginForm();
+        });
+
+        document.getElementById("registerForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            let password = document.getElementById("registerPassword").value;
+            let confirmPassword = document.getElementById("registerConfirmPassword").value;
+            
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+            
+            alert("Registration submitted! (This is a demo)");
+            closeRegisterForm();
+        });
+    </script>
 </body>
 </html>
