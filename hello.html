@@ -1,184 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Simple Project</title>
+    <title>My Simple Project | Modern UI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
     <nav>
-        <a href="hello.html">Home</a>
-        <a href="services.html">Services</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <div class="nav-links">
+            <a href="hello.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
         <div class="nav-auth">
             <button class="btn-login" onclick="showLoginForm()">Login</button>
             <button class="btn-register" onclick="showRegisterForm()">Register</button>
         </div>
     </nav>
-    
+
     <header>
-        <h1>Welcome to My Simple HTML Project</h1>
-        <p>A clean and modern web page</p>
+        <div class="hero-content">
+            <h1>Welcome to My Simple HTML Project</h1>
+            <p>A clean and modern web page designed for the future.</p>
+        </div>
     </header>
 
     <main>
-        <section class="intro">
+        <section class="intro reveal">
             <h2>About This Project</h2>
-            <p>This is a simple HTML project demonstrating basic web development skills including HTML structure and CSS styling.</p>
+            <p>This is a simple HTML project demonstrating basic web development skills including HTML structure and CSS
+                styling. It is built with a focus on user experience and clean aesthetics.</p>
         </section>
 
-        <section class="features">
+        <section class="features reveal">
             <h2>Features</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <h3>📱 Responsive</h3>
-                    <p>Works on all devices</p>
+                    <div class="icon">📱</div>
+                    <h3>Responsive</h3>
+                    <p>Designed to work seamlessly on all devices, from mobile to desktop.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🎨 Styled</h3>
-                    <p>Modern CSS design</p>
+                    <div class="icon">🎨</div>
+                    <h3>Styled</h3>
+                    <p>Modern CSS design featuring gradients and smooth transitions.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>⚡ Clean</h3>
-                    <p>Simple and elegant</p>
+                    <div class="icon">⚡</div>
+                    <h3>Clean</h3>
+                    <p>Simple and elegant code structure for maximum performance.</p>
                 </div>
             </div>
         </section>
 
-        <section class="gallery">
+        <section class="gallery reveal">
             <h2>Gallery</h2>
             <div class="image-grid">
-                <div class="image-placeholder">Image 1</div>
-                <div class="image-placeholder">Image 2</div>
-                <div class="image-placeholder">Image 3</div>
+                <div class="image-placeholder">UI Components</div>
+                <div class="image-placeholder">Brand Identity</div>
+                <div class="image-placeholder">Web Apps</div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 My Simple Project</p>
+        <p>&copy; 2026 My Simple Project. All rights reserved.</p>
     </footer>
 
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeLoginForm()">&times;</span>
-            <h2>Login</h2>
+            <h2>Welcome Back</h2>
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="loginEmail">Email:</label>
-                    <input type="email" id="loginEmail" name="email" required>
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="name@company.com" required>
                 </div>
                 <div class="form-group">
-                    <label for="loginPassword">Password:</label>
-                    <input type="password" id="loginPassword" name="password" required>
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" id="rememberMe" name="remember">
-                    <label for="rememberMe" class="checkbox-label">Remember me</label>
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe" class="checkbox-label">Keep me logged in</label>
                 </div>
-                <button type="submit" class="btn-submit">Login</button>
+                <button type="submit" class="btn-submit">Sign In</button>
             </form>
-            <p class="toggle-form">Don't have an account? <a href="#" onclick="switchToRegister()">Register here</a></p>
+            <p class="toggle-form">Don't have an account? <a href="#" onclick="switchToRegister()">Create one</a></p>
         </div>
     </div>
 
     <div id="registerModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeRegisterForm()">&times;</span>
-            <h2>Register</h2>
+            <h2>Create Account</h2>
             <form id="registerForm">
                 <div class="form-group">
-                    <label for="registerName">Full Name:</label>
-                    <input type="text" id="registerName" name="name" required>
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" placeholder="John Doe" required>
                 </div>
                 <div class="form-group">
-                    <label for="registerEmail">Email:</label>
-                    <input type="email" id="registerEmail" name="email" required>
+                    <label for="registerEmail">Email Address</label>
+                    <input type="email" id="registerEmail" placeholder="name@company.com" required>
                 </div>
                 <div class="form-group">
-                    <label for="registerPassword">Password:</label>
-                    <input type="password" id="registerPassword" name="password" required>
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" placeholder="Create a password" required>
                 </div>
                 <div class="form-group">
-                    <label for="registerConfirmPassword">Confirm Password:</label>
-                    <input type="password" id="registerConfirmPassword" name="confirmPassword" required>
+                    <label for="registerConfirmPassword">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" placeholder="Repeat password" required>
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" id="terms" name="terms" required>
-                    <label for="terms" class="checkbox-label">I agree to the Terms and Conditions</label>
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms" class="checkbox-label">I agree to the Terms & Conditions</label>
                 </div>
-                <button type="submit" class="btn-submit">Register</button>
+                <button type="submit" class="btn-submit">Register Now</button>
             </form>
             <p class="toggle-form">Already have an account? <a href="#" onclick="switchToLogin()">Login here</a></p>
         </div>
     </div>
 
     <script>
+        // --- Modal Control Logic ---
         function showLoginForm() {
             document.getElementById("loginModal").style.display = "block";
-            document.getElementById("registerModal").style.display = "none";
+            document.body.style.overflow = "hidden"; // Prevents scrolling when modal is open
         }
 
         function closeLoginForm() {
             document.getElementById("loginModal").style.display = "none";
+            document.body.style.overflow = "auto";
         }
 
-    
         function showRegisterForm() {
             document.getElementById("registerModal").style.display = "block";
-            document.getElementById("loginModal").style.display = "none";
+            document.body.style.overflow = "hidden";
         }
 
         function closeRegisterForm() {
             document.getElementById("registerModal").style.display = "none";
+            document.body.style.overflow = "auto";
         }
 
-       
         function switchToLogin() {
-            document.getElementById("registerModal").style.display = "none";
-            document.getElementById("loginModal").style.display = "block";
+            closeRegisterForm();
+            showLoginForm();
         }
 
         function switchToRegister() {
-            document.getElementById("loginModal").style.display = "none";
-            document.getElementById("registerModal").style.display = "block";
+            closeLoginForm();
+            showRegisterForm();
         }
 
-     
-        window.onclick = function(event) {
-            let loginModal = document.getElementById("loginModal");
-            let registerModal = document.getElementById("registerModal");
-            if (event.target == loginModal) {
-                loginModal.style.display = "none";
-            }
-            if (event.target == registerModal) {
-                registerModal.style.display = "none";
+        // Close modal when clicking outside of it
+        window.onclick = function (event) {
+            if (event.target.className === "modal") {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
             }
         }
 
-    
-        document.getElementById("loginForm").addEventListener("submit", function(e) {
+        // --- Scroll Reveal Animation ---
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Run once on load to show elements already in view
+        reveal();
+
+        // --- Form Submission Demos ---
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
             e.preventDefault();
-            alert("Login submitted! (This is a demo)");
+            alert("Success: Logged in!");
             closeLoginForm();
         });
 
-        document.getElementById("registerForm").addEventListener("submit", function(e) {
+        document.getElementById("registerForm").addEventListener("submit", function (e) {
             e.preventDefault();
-            let password = document.getElementById("registerPassword").value;
-            let confirmPassword = document.getElementById("registerConfirmPassword").value;
-            
-            if (password !== confirmPassword) {
-                alert("Passwords do not match!");
+            let pass = document.getElementById("registerPassword").value;
+            let confirm = document.getElementById("registerConfirmPassword").value;
+            if (pass !== confirm) {
+                alert("Error: Passwords do not match!");
                 return;
             }
-            
-            alert("Registration submitted! (This is a demo)");
+            alert("Success: Account created!");
             closeRegisterForm();
         });
     </script>
 </body>
+
 </html>
