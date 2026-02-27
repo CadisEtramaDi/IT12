@@ -9,8 +9,6 @@
     
     <!-- Content -->
     <div class="relative z-10">
-        @include('components.customer-navbar')
-        
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div class="text-center mb-12">
             <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4 drop-shadow-lg">Get In Touch</h1>

@@ -3,9 +3,19 @@
 @section('title', 'Manage Bookings')
 
 @section('content')
-<div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-900 mb-2">Manage Bookings</h1>
-    <p class="text-gray-600">View and manage all customer bookings</p>
+<div class="mb-8 flex items-center justify-between">
+    <div>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Manage Bookings</h1>
+        <p class="text-gray-600">View and manage all customer bookings</p>
+    </div>
+    <div class="flex gap-3">
+        <a href="{{ route('admin.availability.check') }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium">
+            Check Availability
+        </a>
+        <a href="{{ route('admin.bookings.create') }}" class="px-4 py-2 bg-[#0EA5E9] text-white rounded-lg hover:bg-sky-600 transition-colors font-medium">
+            + Create Booking
+        </a>
+    </div>
 </div>
 
 <!-- Filters -->

@@ -6,10 +6,10 @@
     <title>@yield('title') - Minjee Balloon Admin</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-200">
     <!-- Top Navigation -->
     <nav class="bg-white shadow-md border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <a href="{{ route('admin.dashboard') }}" class="text-2xl font-bold text-[#0EA5E9]">
@@ -18,12 +18,6 @@
                 </div>
                 
                 <div class="flex items-center space-x-4">
-                    <a href="/" target="_blank" class="text-gray-700 hover:text-[#0EA5E9] transition-colors font-medium">
-                        <svg class="w-5 h-5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                        </svg>
-                        View Site
-                    </a>
                     <form action="{{ route('admin.logout') }}" method="POST" class="inline">
                         @csrf
                         <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium">
@@ -38,7 +32,7 @@
     <!-- Main Content -->
     <div class="flex">
         <!-- Sidebar -->
-        <aside class="w-64 bg-white shadow-md min-h-screen p-6">
+        <aside class="w-64 bg-gray-50 shadow-md min-h-screen p-6">
             <nav class="space-y-2">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.dashboard') ? 'bg-sky-100 text-[#0EA5E9]' : 'text-gray-700 hover:bg-gray-100' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -47,11 +41,40 @@
                     Dashboard
                 </a>
                 
-                <a href="{{ route('admin.bookings.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.bookings.*') ? 'bg-sky-100 text-[#0EA5E9]' : 'text-gray-700 hover:bg-gray-100' }}">
+                <button type="button" onclick="toggleBookingsMenu()" class="w-full flex items-center px-4 py-3 rounded-lg transition-colors text-gray-700 hover:bg-gray-100">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                     </svg>
-                    Bookings
+                    <span class="flex-1 text-left">Bookings</span>
+                </button>
+
+                <div id="bookings-menu" class="hidden space-y-2 mt-2">
+                    <a href="{{ route('admin.bookings.create') }}" class="flex items-center px-4 py-3 ml-4 text-sm {{ request()->routeIs('admin.bookings.create') ? 'text-[#0EA5E9] font-medium' : 'text-gray-700 hover:bg-gray-100' }} rounded-lg transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        Create Booking
+                    </a>
+                    <a href="{{ route('admin.availability.check') }}" class="flex items-center px-4 py-3 ml-4 text-sm {{ request()->routeIs('admin.availability.check') ? 'text-[#0EA5E9] font-medium' : 'text-gray-700 hover:bg-gray-100' }} rounded-lg transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        Check Availability
+                    </a>
+                </div>
+
+                <a href="{{ route('admin.customers.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.customers.*') ? 'bg-sky-100 text-[#0EA5E9]' : 'text-gray-700 hover:bg-gray-100' }}">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 12H9m4.646-4.354l2.121-2.121M18.364 9.636l2.121-2.121M9.172 9.172L7.05 7.05m2.121 2.121l-2.121 2.121m9.546-4.04l2.121 2.121m-2.121 2.121l2.121 2.121M4 12a8 8 0 1116 0 8 8 0 01-16 0z"></path>
+                    </svg>
+                    Customers
+                </a>
+
+                <a href="{{ route('admin.inventory.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.inventory.*') ? 'bg-sky-100 text-[#0EA5E9]' : 'text-gray-700 hover:bg-gray-100' }}">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V7a2 2 0 00-2-2H6a2 2 0 00-2 2v6m16 0v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4m16 0H4m8-6v6"></path>
+                    </svg>
+                    Inventory
                 </a>
 
                 <a href="{{ route('admin.payments.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.payments.*') ? 'bg-sky-100 text-[#0EA5E9]' : 'text-gray-700 hover:bg-gray-100' }}">
@@ -59,6 +82,13 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
                     </svg>
                     Payments
+                </a>
+
+                <a href="{{ route('admin.revenue.index') }}" class="flex items-center px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.revenue.*') ? 'bg-sky-100 text-[#0EA5E9]' : 'text-gray-700 hover:bg-gray-100' }}">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Revenue
                 </a>
 
                 <a href="{{ route('admin.reports.sales') }}" class="flex items-center px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.reports.*') ? 'bg-sky-100 text-[#0EA5E9]' : 'text-gray-700 hover:bg-gray-100' }}">
@@ -87,5 +117,26 @@
             @yield('content')
         </main>
     </div>
+
+    <script>
+        function toggleBookingsMenu() {
+            const menu = document.getElementById('bookings-menu');
+            const arrow = document.getElementById('bookings-arrow');
+            
+            menu.classList.toggle('hidden');
+            arrow.style.transform = menu.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+
+        // Keep dropdown open if on a bookings route
+        document.addEventListener('DOMContentLoaded', function() {
+            const onBookingsRoute = @json(request()->routeIs('admin.bookings.*', 'admin.availability.*'));
+            if (onBookingsRoute) {
+                const menu = document.getElementById('bookings-menu');
+                const arrow = document.getElementById('bookings-arrow');
+                menu.classList.remove('hidden');
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        });
+    </script>
 </body>
 </html>

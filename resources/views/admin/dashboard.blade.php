@@ -67,37 +67,6 @@
     </div>
 </div>
 
-<!-- Sales Statistics -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-    <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl shadow-md p-6 text-white">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-green-100 mb-1">Total Sales</p>
-                <p class="text-3xl font-bold">₱{{ number_format($totalSales, 2) }}</p>
-            </div>
-            <div class="opacity-30">
-                <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl shadow-md p-6 text-white">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-blue-100 mb-1">This Month Sales</p>
-                <p class="text-3xl font-bold">₱{{ number_format($monthSales, 2) }}</p>
-            </div>
-            <div class="opacity-30">
-                <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Quick Actions -->
 <div class="bg-white rounded-xl shadow-md p-6 mb-8">
     <h2 class="text-xl font-bold text-gray-900 mb-4">Quick Actions</h2>
@@ -153,18 +122,18 @@
                             <td class="py-3 px-4 text-gray-900 font-medium">#{{ $booking->bookingID }}</td>
                             <td class="py-3 px-4">
                                 <div class="font-medium text-gray-900">{{ $booking->customer->fname }} {{ $booking->customer->lname }}</div>
-                                <div class="text-sm text-gray-500">{{ $booking->customer->phonenumber }}</div>
+                                <div class="text-sm text-gray-500">{{ $booking->customer->phone }}</div>
                             </td>
-                            <td class="py-3 px-4 text-gray-900">{{ $booking->eventdate->format('M d, Y') }}</td>
-                            <td class="py-3 px-4 text-gray-900">{{ date('h:i A', strtotime($booking->eventtime)) }}</td>
-                            <td class="py-3 px-4 text-gray-900 font-semibold">₱{{ number_format($booking->totalamount, 2) }}</td>
+                            <td class="py-3 px-4 text-gray-900">{{ $booking->eventDATE ? \Carbon\Carbon::parse($booking->eventDATE)->format('M d, Y') : 'N/A' }}</td>
+                            <td class="py-3 px-4 text-gray-900">{{ date('h:i A', strtotime($booking->timeStart)) }}</td>
+                            <td class="py-3 px-4 text-gray-900 font-semibold">₱{{ number_format($booking->totalAmount, 2) }}</td>
                             <td class="py-3 px-4">
                                 <span class="px-3 py-1 rounded-full text-xs font-semibold
-                                    {{ $booking->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : '' }}
-                                    {{ $booking->status === 'confirmed' ? 'bg-green-100 text-green-800' : '' }}
-                                    {{ $booking->status === 'cancelled' ? 'bg-red-100 text-red-800' : '' }}
-                                    {{ $booking->status === 'paid' ? 'bg-blue-100 text-blue-800' : '' }}">
-                                    {{ ucfirst($booking->status) }}
+                                    {{ $booking->status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : '' }}
+                                    {{ $booking->status === 'Confirmed' ? 'bg-green-100 text-green-800' : '' }}
+                                    {{ $booking->status === 'Cancelled' ? 'bg-red-100 text-red-800' : '' }}
+                                    {{ $booking->status === 'Completed' ? 'bg-blue-100 text-blue-800' : '' }}">
+                                    {{ $booking->status }}
                                 </span>
                             </td>
                             <td class="py-3 px-4">

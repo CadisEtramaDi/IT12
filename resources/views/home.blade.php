@@ -4,7 +4,6 @@
 
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-[#F8FAFC] via-white to-sky-50">
-    @include('components.customer-navbar')
     
     <!-- Hero Section with Balloon Background -->
     <section class="relative overflow-hidden min-h-[600px] sm:min-h-[700px]">

@@ -10,16 +10,17 @@ class Booking extends Model
 
     protected $fillable = [
         'customerID',
-        'eventdate',
-        'eventtime',
-        'eventdetails',
+        'eventDATE',
+        'eventLocation',
+        'timeStart',
+        'timeEND',
         'status',
-        'totalamount',
+        'totalAmount',
     ];
 
     protected $casts = [
-        'eventdate' => 'date',
-        'totalamount' => 'decimal:2',
+        'eventDATE' => 'date',
+        'totalAmount' => 'decimal:2',
     ];
 
     /**
@@ -36,5 +37,23 @@ class Booking extends Model
     public function payments()
     {
         return $this->hasMany(Payment::class, 'bookingID', 'bookingID');
+    }
+
+    /**
+     * Get the booking items for this booking.
+     */
+    public function bookingItems()
+    {
+        return $this->hasMany(BookingItem::class, 'bookingID', 'bookingID');
+    }
+
+    /**
+     * Get all inventory items for this booking.
+     */
+    public function items()
+    {
+        return $this->belongsToMany(Inventory::class, 'booking_items', 'bookingID', 'itemID')
+                    ->withPivot('quantity', 'subtotal')
+                    ->withTimestamps();
     }
 }

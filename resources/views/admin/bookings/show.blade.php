@@ -87,15 +87,15 @@
                         <div class="space-y-3">
                             <div>
                                 <p class="text-sm text-gray-500 mb-1">Event Date</p>
-                                <p class="font-medium text-gray-900">{{ $booking->eventdate->format('F d, Y') }}</p>
+                                <p class="font-medium text-gray-900">{{ $booking->eventDATE->format('F d, Y') }}</p>
                             </div>
                             <div>
                                 <p class="text-sm text-gray-500 mb-1">Event Time</p>
-                                <p class="font-medium text-gray-900">{{ date('h:i A', strtotime($booking->eventtime)) }}</p>
+                                <p class="font-medium text-gray-900">{{ date('h:i A', strtotime($booking->timeStart)) }} - {{ date('h:i A', strtotime($booking->timeEND)) }}</p>
                             </div>
                             <div>
-                                <p class="text-sm text-gray-500 mb-1">Details</p>
-                                <p class="font-medium text-gray-900">{{ $booking->eventdetails }}</p>
+                                <p class="text-sm text-gray-500 mb-1">Location</p>
+                                <p class="font-medium text-gray-900">{{ $booking->evenLocation }}</p>
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                     <div class="bg-gray-50 rounded-lg p-4 space-y-2">
                         <div class="flex justify-between items-center">
                             <span class="text-gray-700">Total Amount:</span>
-                            <span class="font-bold text-gray-900 text-lg">₱{{ number_format($booking->totalamount, 2) }}</span>
+                            <span class="font-bold text-gray-900 text-lg">₱{{ number_format($booking->totalAmount, 2) }}</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-gray-700">Amount Paid:</span>
@@ -189,7 +189,7 @@
         @endif
 
         <!-- Approve Booking Form -->
-        @if($booking->status === 'pending')
+        @if($booking->status === 'Pending')
         <div class="bg-white rounded-xl shadow-md overflow-hidden border-2 border-yellow-200">
             <div class="bg-gradient-to-r from-yellow-400 to-yellow-500 px-6 py-4">
                 <h3 class="text-lg font-semibold text-gray-900 flex items-center">
@@ -205,21 +205,21 @@
                     @method('PUT')
                     
                     <div class="mb-4">
-                        <label for="totalamount" class="block text-sm font-medium text-gray-700 mb-2">Total Amount (₱) *</label>
+                        <label for="totalAmount" class="block text-sm font-medium text-gray-700 mb-2">Total Amount (₱) *</label>
                         <input type="number" 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0EA5E9] focus:border-transparent transition-all @error('totalamount') border-red-500 @enderror" 
-                               id="totalamount" 
-                               name="totalamount" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0EA5E9] focus:border-transparent transition-all @error('totalAmount') border-red-500 @enderror" 
+                               id="totalAmount" 
+                               name="totalAmount" 
                                step="0.01" 
                                min="0"
-                               value="{{ old('totalamount', $booking->totalamount) }}" 
+                               value="{{ old('totalAmount', $booking->totalAmount) }}" 
                                required>
-                        @error('totalamount')
+                        @error('totalAmount')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <input type="hidden" name="status" value="confirmed">
+                    <input type="hidden" name="status" value="Confirmed">
 
                     <button type="submit" class="w-full px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors shadow-md flex items-center justify-center">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -241,7 +241,7 @@
                 <h3 class="text-lg font-semibold text-gray-900">Quick Actions</h3>
             </div>
             <div class="p-4 space-y-3">
-                @if($booking->status === 'confirmed' || $booking->status === 'paid')
+                @if($booking->status === 'Confirmed' || $booking->status === 'Completed')
                     <a href="{{ route('admin.payments.create', $booking->bookingID) }}" 
                        style="display: block; width: 100%; padding: 12px 16px; background-color: #0EA5E9; color: white; border-radius: 8px; font-weight: 600; text-align: center; text-decoration: none;">
                         💰 Add Payment
@@ -302,10 +302,14 @@
             </div>
             <div class="p-6 text-center">
                 @php
-                    $eventDate = $booking->eventdate;
-                    $daysUntil = (int) now()->startOfDay()->diffInDays($eventDate->startOfDay(), false);
+                    $eventDate = $booking->eventDATE;
+                    if ($eventDate) {
+                        $daysUntil = (int) now()->startOfDay()->diffInDays($eventDate->startOfDay(), false);
+                    } else {
+                        $daysUntil = 0;
+                    }
                 @endphp
-                @if($daysUntil > 0)
+                @if($eventDate && $daysUntil > 0)
                     <div class="text-7xl font-bold mb-2">{{ $daysUntil }}</div>
                     <p class="text-white/90 text-lg">days until event</p>
                 @elseif($daysUntil === 0)

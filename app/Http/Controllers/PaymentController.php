@@ -24,13 +24,13 @@ class PaymentController extends Controller
         $booking = Booking::with('customer')->findOrFail($bookingId);
         
         // Check if booking is approved
-        if ($booking->status !== 'confirmed') {
+        if (strtolower($booking->status) !== 'confirmed') {
             return redirect()->back()->with('error', 'Booking must be approved before payment.');
         }
         
         // Calculate remaining balance
         $totalPaid = $booking->payments()->sum('amountpaid');
-        $remainingBalance = $booking->totalamount - $totalPaid;
+        $remainingBalance = $booking->totalAmount - $totalPaid;
         
         return view('admin.payments.create', compact('booking', 'totalPaid', 'remainingBalance'));
     }
@@ -41,7 +41,7 @@ class PaymentController extends Controller
         $booking = Booking::findOrFail($bookingId);
         
         $validated = $request->validate([
-            'amountpaid' => 'required|numeric|min:0|max:' . $booking->totalamount,
+            'amountpaid' => 'required|numeric|min:0|max:' . $booking->totalAmount,
             'paymentdate' => 'required|date',
             'paymentmethod' => 'required|in:cash,gcash',
             'status' => 'required|in:completed,pending,failed',
@@ -53,8 +53,8 @@ class PaymentController extends Controller
 
         // Check if booking is fully paid
         $totalPaid = $booking->payments()->sum('amountpaid');
-        if ($totalPaid >= $booking->totalamount) {
-            $booking->update(['status' => 'paid']);
+        if ($totalPaid >= $booking->totalAmount) {
+            $booking->update(['status' => 'Completed']);
         }
 
         return redirect()->route('admin.bookings.show', $bookingId)

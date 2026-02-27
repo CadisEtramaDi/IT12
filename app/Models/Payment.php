@@ -10,6 +10,7 @@ class Payment extends Model
 
     protected $fillable = [
         'bookingID',
+        'revenueID',
         'amountpaid',
         'paymentdate',
         'paymentmethod',
@@ -27,5 +28,13 @@ class Payment extends Model
     public function booking()
     {
         return $this->belongsTo(Booking::class, 'bookingID', 'bookingID');
+    }
+
+    /**
+     * Get the revenue report this payment belongs to.
+     */
+    public function revenue()
+    {
+        return $this->belongsTo(Revenue::class, 'revenueID', 'revenueID');
     }
 }

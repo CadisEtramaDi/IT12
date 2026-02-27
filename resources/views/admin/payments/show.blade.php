@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="mb-6">
-    <a href="{{ route('admin.payments.index') }}" class="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+    <a href="{{ route('admin.payments.index') }}" class="inline-flex items-center gap-2 bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 rounded-lg transition-colors border border-gray-200">
         <span>←</span>
         <span>Back to Payments</span>
     </a>
@@ -53,6 +53,7 @@
 
     <div class="bg-white rounded-xl shadow-md p-6">
         <h2 class="text-xl font-bold text-gray-900 mb-4">Booking Information</h2>
+        @if($payment->booking)
         <div class="space-y-3">
             <div class="flex justify-between items-center">
                 <span class="text-gray-600">Booking ID:</span>
@@ -63,27 +64,32 @@
             <div class="flex justify-between items-center">
                 <span class="text-gray-600">Customer:</span>
                 <span class="font-semibold text-gray-900">
-                    {{ $payment->booking->customer->fname }} 
-                    {{ $payment->booking->customer->lname }}
+                    {{ $payment->booking->customer->fname ?? 'N/A' }} 
+                    {{ $payment->booking->customer->lname ?? '' }}
                 </span>
             </div>
             <div class="flex justify-between items-center">
                 <span class="text-gray-600">Phone:</span>
-                <span class="text-gray-900">{{ $payment->booking->customer->phonenumber }}</span>
+                <span class="text-gray-900">{{ $payment->booking->customer->phonenumber ?? 'N/A' }}</span>
             </div>
             <div class="flex justify-between items-center">
                 <span class="text-gray-600">Event Date:</span>
-                <span class="text-gray-900">{{ $payment->booking->eventdate->format('F d, Y') }}</span>
+                <span class="text-gray-900">{{ $payment->booking->eventDATE ? \Carbon\Carbon::parse($payment->booking->eventDATE)->format('F d, Y') : 'N/A' }}</span>
             </div>
             <div class="flex justify-between items-center">
                 <span class="text-gray-600">Event Time:</span>
-                <span class="text-gray-900">{{ date('h:i A', strtotime($payment->booking->eventtime)) }}</span>
+                <span class="text-gray-900">{{ $payment->booking->timeStart ? date('h:i A', strtotime($payment->booking->timeStart)) : 'N/A' }} - {{ $payment->booking->timeEND ? date('h:i A', strtotime($payment->booking->timeEND)) : 'N/A' }}</span>
             </div>
             <div class="flex justify-between items-center border-t border-gray-200 pt-3">
                 <span class="text-gray-600">Total Amount:</span>
-                <span class="font-bold text-gray-900 text-lg">₱{{ number_format($payment->booking->totalamount, 2) }}</span>
+                <span class="font-bold text-gray-900 text-lg">₱{{ number_format($payment->booking->totalAmount ?? 0, 2) }}</span>
             </div>
         </div>
+        @else
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <p class="text-yellow-800">No booking information available for this payment.</p>
+        </div>
+        @endif
     </div>
 </div>
 

@@ -19,16 +19,16 @@
             </div>
             <div class="flex justify-between">
                 <span class="text-gray-600">Event Date:</span>
-                <span class="font-semibold text-gray-900">{{ $booking->eventdate->format('M d, Y') }}</span>
+                <span class="font-semibold text-gray-900">{{ $booking->eventDATE->format('M d, Y') }}</span>
             </div>
             <div class="flex justify-between">
                 <span class="text-gray-600">Event Time:</span>
-                <span class="font-semibold text-gray-900">{{ date('h:i A', strtotime($booking->eventtime)) }}</span>
+                <span class="font-semibold text-gray-900">{{ date('h:i A', strtotime($booking->timeStart)) }} - {{ date('h:i A', strtotime($booking->timeEND)) }}</span>
             </div>
             <div class="border-t border-gray-200 pt-3 mt-3"></div>
             <div class="flex justify-between">
                 <span class="text-gray-600">Total Amount:</span>
-                <span class="font-bold text-gray-900 text-lg">₱{{ number_format($booking->totalamount, 2) }}</span>
+                <span class="font-bold text-gray-900 text-lg">₱{{ number_format($booking->totalAmount, 2) }}</span>
             </div>
             <div class="flex justify-between">
                 <span class="text-gray-600">Amount Paid:</span>

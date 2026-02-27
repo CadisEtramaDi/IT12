@@ -16,11 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create admin user
-        User::create([
-            'username' => 'admin',
-            'password' => bcrypt('admin123'),
-            'role' => 'admin',
+        // Call seeders
+        $this->call([
+            AdminUserSeeder::class,
+            InventorySeeder::class,
         ]);
 
         // Create sample customer

@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id('bookingID');
             $table->unsignedBigInteger('customerID');
-            $table->date('eventdate');
-            $table->time('eventtime');
-            $table->string('eventdetails');
-            $table->string('status')->default('pending');
-            $table->decimal('totalamount', 10, 2);
+            $table->date('eventDATE');
+            $table->string('eventLocation', 150);
+            $table->time('timeStart');
+            $table->time('timeEND');
+            $table->enum('status', ['Pending', 'Confirmed', 'Cancelled', 'Completed'])->default('Pending');
+            $table->decimal('totalAmount', 10, 2);
             $table->timestamps();
 
             $table->foreign('customerID')->references('customerID')->on('customers')->onDelete('cascade');

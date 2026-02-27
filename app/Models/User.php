@@ -47,4 +47,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the customers registered by this user.
+     */
+    public function customers()
+    {
+        return $this->hasMany(\App\Models\Customer::class, 'userID', 'userID');
+    }
 }
